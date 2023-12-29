@@ -114,6 +114,7 @@ export default defineComponent({
           size="x-large"
           disabled={ disabled.value }
           onClick={ () => save() }
+          loading={ loading.value }
         >
           Save
         </v-btn>
