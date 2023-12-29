@@ -11,4 +11,4 @@ This is a test to apply for a job.
 
 ## Working demo
 
-Check out the [demo](https://nuxt.com/docs/getting-started/deployment) for more information.
+Check out the [demo](https://todos-app.cp.murrudev.com/) for more information.
