@@ -20,6 +20,8 @@ This is a test to apply for a job.
 
 - Clone the project
 - cd into folder
+- Copy `.env.example` to `.env`
+- Set `RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET` with your [google recaptcha v3 console keys](https://www.google.com/recaptcha/about/)
 - run $ npm i
 - run $ npm run dev
 
