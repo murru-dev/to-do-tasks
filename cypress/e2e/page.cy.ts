@@ -53,7 +53,7 @@ describe("template spec", () => {
     // Type task #2
     cy.get('[data-test="task-input"]').within(() => {
       cy.get("input").should("have.value", ""); // Check if input value is empty at first.
-      cy.get("input").type("Walk Tyrion (My dog)"); // Type the first task
+      cy.get("input").type("Walk Tyrion (My dog)"); // Type the second task
     });
 
     // Create task #2
@@ -62,7 +62,7 @@ describe("template spec", () => {
     // Type task #3
     cy.get('[data-test="task-input"]').within(() => {
       cy.get("input").should("have.value", ""); // Check if input value is empty at first.
-      cy.get("input").type("Go to work"); // Type the first task
+      cy.get("input").type("Go to work"); // Type the third task
     });
 
     // Create task #3
@@ -129,6 +129,35 @@ describe("template spec", () => {
     cy.get('[data-test="tasks-wrapper"]').within(() => {
       cy.get(".v-list-item").should("have.length", 2);
       cy.get(".v-list-item").contains("No added tasks yet").should("not.exist");
+    });
+  });
+
+  it.only("delete tasks", () => {
+    /* Create task */
+    // Type task
+    cy.get('[data-test="task-input"]').within(() => {
+      cy.get("input").should("have.value", ""); // Check if input value is empty at first.
+      cy.get("input").type("Wash the dishes"); // Type the task
+    });
+
+    // Save task
+    cy.get('[data-test="create-task-button"]').click();
+
+    // Check todo tasks
+    cy.get('[data-test="tasks-wrapper"]').within(() => {
+      cy.get(".v-list-item").should("have.length", 1);
+      cy.get(".v-list-item").contains("No added tasks yet").should("not.exist");
+    });
+
+    // Delete task
+    cy.get('[data-test="delete-task-0"]').click();
+
+    // Check todo tasks
+    cy.get('[data-test="tasks-wrapper"]').within(() => {
+      cy.get(".v-list-item").should("have.length", 1);
+      cy.get(".v-list-item")
+        .contains("No added tasks yet")
+        .should("be.visible");
     });
   });
 });

@@ -21,6 +21,9 @@ export default defineComponent({
     const setSource = (s: Source) => {
       source.value = s;
     }
+    const deleteTask = (id: string) => {
+      taskStore.deleteTask(id);
+    }
 
     return () => (
       <v-card
@@ -60,12 +63,17 @@ export default defineComponent({
                         <p>{ task.id }</p>
                       ),
                       append: () => (
-                        <v-checkbox
-                          data-test={`complete-task-${index}`}
-                          v-model={ task.completed }
-                          hide-details
-                          onClick={ () => taskStore.updateTaskState(task.id, task.completed) }
-                        ></v-checkbox>
+                        <>
+                          <v-checkbox
+                            data-test={`complete-task-${index}`}
+                            v-model={ task.completed }
+                            hide-details
+                            onClick={ () => taskStore.updateTaskState(task.id, task.completed) }
+                          ></v-checkbox>
+                          <v-btn data-test={`delete-task-${index}`} icon variant="text" onClick={ () => deleteTask(task.id) }>
+                            <v-icon>mdi-delete</v-icon>
+                          </v-btn>
+                        </>
                       )
                     }}
                   </v-list-item>

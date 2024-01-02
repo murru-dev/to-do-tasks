@@ -17,5 +17,8 @@ export const useTaskStore = defineStore("taskStore", {
         this.list.splice(index, 1, task);
       }
     },
+    deleteTask(id: string) {
+      this.list = this.list.filter((t: Task) => t.id !== id);
+    },
   },
 });
