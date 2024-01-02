@@ -23,8 +23,6 @@ export default defineComponent({
     // Composables
     const { value, errors, meta, validate, resetField } = useField<string>("task", rules);
     const { validateToken } = useRecaptcha();
-    const { setError } = useErrorHandler();
-    const { resetSnackbar, setSnackbar } = useSnackbar()
 
     // Computed props
     const invalid = computed<boolean>(() => {
@@ -67,9 +65,6 @@ export default defineComponent({
         // Toggle loading
         toggleLoading();
 
-        // Reset snackbar
-        resetSnackbar();
-
         // Validate recaptcha token
         await validateToken();
 
@@ -83,11 +78,9 @@ export default defineComponent({
         // Save data to the Pinia store
         taskStore.addTask(newTask);
         
-        // Render snackbar
-        setSnackbar("green", "Task saved successfully!");
         resetField();
       } catch (error) {
-        setError(error);
+        console.log(error);
       } finally {
         toggleLoading();
       }
@@ -106,6 +99,7 @@ export default defineComponent({
           disabled={ loading.value }
           error-messages={ errors.value }
           onkeypress={ (event: KeyboardEvent) => handleKeyUp(event) }
+          data-test="task-input"
         ></v-text-field>
         <v-btn
           prepend-icon="mdi-check-bold"
@@ -115,6 +109,7 @@ export default defineComponent({
           disabled={ disabled.value }
           onClick={ () => save() }
           loading={ loading.value }
+          data-test="create-task-button"
         >
           Save
         </v-btn>

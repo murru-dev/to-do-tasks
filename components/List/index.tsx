@@ -31,20 +31,20 @@ export default defineComponent({
           <br />
           <v-row>
             <v-col>
-              <v-btn block color={ source.value === Source.ToDo ? 'info' : '' } onClick={ () => setSource(Source.ToDo) }>To Do</v-btn>
+              <v-btn data-test="todo-source-button" block color={ source.value === Source.ToDo ? 'info' : '' } onClick={ () => setSource(Source.ToDo) }>To Do</v-btn>
             </v-col>
             <v-col>
-              <v-btn block color={ source.value === Source.Completed ? 'info' : '' } onClick={ () => setSource(Source.Completed) }>Completed</v-btn>
+              <v-btn data-test="completed-source-button" block color={ source.value === Source.Completed ? 'info' : '' } onClick={ () => setSource(Source.Completed) }>Completed</v-btn>
             </v-col>
           </v-row>
         </v-card-title>
         <v-card-text>
-          <v-list>
+          <v-list data-test="tasks-wrapper">
             {
               list.value.length === 0 ? (
                 <v-list-item>No { source.value === Source.ToDo ? 'added' : 'completed' } tasks yet</v-list-item>
               ) : (
-                list.value.map((task: Task) => (
+                list.value.map((task: Task, index: number) => (
                   <v-list-item
                     key={ task.id }
                     color="primary"
@@ -60,7 +60,12 @@ export default defineComponent({
                         <p>{ task.id }</p>
                       ),
                       append: () => (
-                        <v-checkbox v-model={ task.completed } onClick={ () => taskStore.updateTaskState(task.id, task.completed) }></v-checkbox>
+                        <v-checkbox
+                          data-test={`complete-task-${index}`}
+                          v-model={ task.completed }
+                          hide-details
+                          onClick={ () => taskStore.updateTaskState(task.id, task.completed) }
+                        ></v-checkbox>
                       )
                     }}
                   </v-list-item>
